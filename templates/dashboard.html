@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Markets - StockIQ India{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="card-head">
+      <div>
+        <h1>Markets</h1>
+        <p class="muted" style="margin:0">NIFTY 50, SENSEX and the day's movers.</p>
+      </div>
+      <span class="small muted" id="marketTimestamp">Loading...</span>
+    </div>
+
+    <div class="grid grid-2" id="indices">
+      <div class="card"><div class="skeleton" style="height:60px"></div></div>
+      <div class="card"><div class="skeleton" style="height:60px"></div></div>
+    </div>
+
+    <div class="card" style="margin-top:18px">
+      <div class="card-head">
+        <h3 style="margin:0">Market sentiment</h3>
+        <span id="marketSentiment"></span>
+      </div>
+      <p class="small muted" style="margin:0">
+        Sentiment needs licensed market-breadth data (advances versus declines across the
+        whole exchange). When the configured provider does not supply it, this panel says
+        so instead of showing a made-up mood indicator.
+      </p>
+    </div>
+
+    <div class="grid grid-3" style="margin-top:18px">
+      <div class="card">
+        <h3>Top gainers</h3>
+        <div id="topGainers"><div class="loading">Loading...</div></div>
+      </div>
+      <div class="card">
+        <h3>Top losers</h3>
+        <div id="topLosers"><div class="loading">Loading...</div></div>
+      </div>
+      <div class="card">
+        <h3>Most active</h3>
+        <div id="mostActive"><div class="loading">Loading...</div></div>
+      </div>
+    </div>
+
+    <p class="source-note" id="marketSource"></p>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

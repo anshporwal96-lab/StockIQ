@@ -1,0 +1,96 @@
+/* ==========================================================================
+   dashboard.css - homepage, market overview, compare and watchlist pages
+   ========================================================================== */
+
+/* ---------- Hero ---------- */
+.hero {
+  padding: 62px 0 46px;
+  background:
+    radial-gradient(900px 340px at 50% -60px, var(--brand-soft), transparent 70%),
+    var(--surface);
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+}
+.hero h1 { font-size: clamp(1.9rem, 4.4vw, 3rem); letter-spacing: -.025em; margin-bottom: .35em; }
+.hero-sub { font-size: 1.06rem; color: var(--text-muted); max-width: 620px;
+            margin: 0 auto 30px; }
+
+.hero-search { position: relative; display: flex; gap: 9px; max-width: 620px; margin: 0 auto; }
+.hero-search input {
+  flex: 1; padding: 14px 18px; font-size: 1rem; border: 1px solid var(--border);
+  border-radius: var(--radius); background: var(--surface); color: var(--text);
+  box-shadow: var(--shadow); font-family: inherit;
+}
+.hero-search input:focus { outline: 2px solid var(--brand); outline-offset: -1px; }
+.hero-search .btn { padding: 14px 26px; }
+.hero-search .search-results { left: 0; right: 0; width: auto; text-align: left; }
+
+.hero-examples { margin-top: 18px; display: flex; gap: 10px; justify-content: center;
+                 flex-wrap: wrap; align-items: center; }
+.hero-examples a {
+  padding: 5px 12px; border: 1px solid var(--border); border-radius: 999px;
+  font-size: .84rem; font-weight: 600; background: var(--surface); color: var(--brand);
+}
+.hero-examples a:hover { background: var(--brand-soft); text-decoration: none; }
+
+/* ---------- Index cards ---------- */
+.index-card { display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+.index-card .index-name { font-size: .8rem; text-transform: uppercase;
+                          letter-spacing: .06em; color: var(--text-muted); font-weight: 600; }
+.index-card .index-value { font-size: 1.9rem; font-weight: 650; font-family: var(--mono);
+                           font-variant-numeric: tabular-nums; margin-top: 3px; }
+.index-card .index-change { font-size: .95rem; font-weight: 600; font-family: var(--mono); }
+
+/* ---------- Mover lists ---------- */
+.mover-list { list-style: none; margin: 0; padding: 0; }
+.mover-list li { display: flex; align-items: center; justify-content: space-between;
+                 gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--border); }
+.mover-list li:last-child { border-bottom: 0; }
+.mover-list .sym { font-weight: 650; font-size: .9rem; }
+.mover-list .co { font-size: .76rem; color: var(--text-muted); display: block;
+                  max-width: 190px; overflow: hidden; text-overflow: ellipsis;
+                  white-space: nowrap; }
+.mover-list .pct { font-family: var(--mono); font-weight: 600; font-size: .9rem; }
+
+/* ---------- Feature and pipeline ---------- */
+.feature h3 { font-size: 1rem; margin-bottom: .4em; }
+
+.pipeline { display: flex; align-items: stretch; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+.pipeline-step { flex: 1; min-width: 175px; background: var(--surface-2);
+                 border: 1px solid var(--border); border-radius: var(--radius-sm);
+                 padding: 14px; }
+.pipeline-step span { display: inline-flex; align-items: center; justify-content: center;
+                      width: 21px; height: 21px; border-radius: 50%; background: var(--brand);
+                      color: #fff; font-size: .74rem; font-weight: 700; margin-bottom: 7px; }
+.pipeline-step strong { display: block; font-size: .9rem; margin-bottom: 3px; }
+.pipeline-step p { margin: 0; }
+.pipeline-arrow { display: flex; align-items: center; color: var(--text-muted); font-size: 1.2rem; }
+
+/* ---------- Compare page ---------- */
+.compare-builder { display: flex; gap: 9px; flex-wrap: wrap; align-items: flex-start; }
+.compare-builder .nav-search input { width: 240px; }
+.chip-row { display: flex; gap: 8px; flex-wrap: wrap; margin: 14px 0; }
+.chip { display: inline-flex; align-items: center; gap: 7px; padding: 6px 12px;
+        border-radius: 999px; background: var(--brand-soft); color: var(--brand);
+        font-size: .85rem; font-weight: 600; }
+.chip button { background: none; border: 0; color: inherit; cursor: pointer;
+               font-size: 1.05rem; line-height: 1; padding: 0; }
+
+table.compare td.metric-name { font-weight: 600; background: var(--surface-2); }
+table.compare .best { background: var(--up-soft); color: var(--up); font-weight: 700; }
+
+/* ---------- Watchlist ---------- */
+.watch-row { display: grid; grid-template-columns: 1.6fr .8fr .8fr .8fr .8fr 40px;
+             gap: 12px; align-items: center; padding: 13px 0;
+             border-bottom: 1px solid var(--border); }
+.watch-row .co-name { font-weight: 600; }
+.watch-row .co-sym { font-size: .78rem; color: var(--text-muted); }
+.watch-head { font-size: .74rem; text-transform: uppercase; letter-spacing: .04em;
+              color: var(--text-muted); font-weight: 600; }
+
+@media (max-width: 760px) {
+  .hero-search { flex-direction: column; }
+  .pipeline-arrow { display: none; }
+  .watch-row { grid-template-columns: 1fr auto; row-gap: 5px; }
+  .watch-head { display: none; }
+}

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Create an account - StockIQ India{% endblock %}
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="card form">
+      <h1>Create an account</h1>
+      <p class="muted small">Free. Only needed for the watchlist.</p>
+
+      <div id="authMessage"></div>
+
+      <form id="registerForm" novalidate>
+        <div class="field">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" required autocomplete="username">
+          <div class="hint">3 to 30 characters: letters, numbers, dot, dash or underscore.</div>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required autocomplete="email">
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required
+                 autocomplete="new-password">
+          <div class="hint">At least 8 characters, mixing letters and numbers.
+            It is stored only as a one-way hash, never as text.</div>
+        </div>
+        <button class="btn btn-primary" type="submit" style="width:100%" id="registerSubmit">
+          Create account
+        </button>
+      </form>
+
+      <p class="small muted center" style="margin-top:16px">
+        Already have an account? <a href="/login">Log in</a>
+      </p>
+    </div>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+{% endblock %}

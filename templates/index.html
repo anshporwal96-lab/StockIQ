@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% block title %}StockIQ India - AI Research for NSE and BSE Stocks{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <div class="container">
+    <h1>Understand Indian Stocks<br>Before You Invest</h1>
+    <p class="hero-sub">
+      AI-powered fundamental, technical and financial analysis for NSE and BSE stocks.
+    </p>
+
+    <div class="hero-search">
+      <input type="search" id="heroSearch" placeholder="Search company or NSE/BSE symbol"
+             autocomplete="off" aria-label="Search company or symbol">
+      <button class="btn btn-primary" id="heroSearchBtn">Search</button>
+      <div class="search-results" id="heroSearchResults" hidden></div>
+    </div>
+
+    <div class="hero-examples">
+      <span class="muted small">Try:</span>
+      <a href="/stock/TCS">TCS</a>
+      <a href="/stock/RELIANCE">RELIANCE</a>
+      <a href="/stock/INFY">INFY</a>
+      <a href="/stock/HDFCBANK">HDFCBANK</a>
+      <a href="/stock/ICICIBANK">ICICIBANK</a>
+      <a href="/stock/ITC">ITC</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== MARKET OVERVIEW ===================== -->
+<section class="section">
+  <div class="container">
+    <div class="card-head">
+      <h2>Market overview</h2>
+      <span class="small muted" id="marketTimestamp">Loading...</span>
+    </div>
+
+    <div class="grid grid-2" id="indices">
+      <div class="card"><div class="skeleton" style="height:60px"></div></div>
+      <div class="card"><div class="skeleton" style="height:60px"></div></div>
+    </div>
+
+    <div class="grid grid-3" style="margin-top:18px">
+      <div class="card">
+        <h3>Top gainers</h3>
+        <div id="topGainers"><div class="loading">Loading...</div></div>
+      </div>
+      <div class="card">
+        <h3>Top losers</h3>
+        <div id="topLosers"><div class="loading">Loading...</div></div>
+      </div>
+      <div class="card">
+        <h3>Most active</h3>
+        <div id="mostActive"><div class="loading">Loading...</div></div>
+      </div>
+    </div>
+
+    <p class="source-note" id="marketSource"></p>
+  </div>
+</section>
+
+<!-- ===================== WHAT YOU GET ===================== -->
+<section class="section">
+  <div class="container">
+    <h2>What a StockIQ report answers</h2>
+    <p class="muted">Search any listed company and get a full research report, built by
+      Python maths first and explained in plain English second.</p>
+
+    <div class="grid grid-4" style="margin-top:20px">
+      <div class="card feature">
+        <h3>Is the business growing?</h3>
+        <p class="small muted">Revenue and profit growth, 3- and 5-year CAGR, segment mix
+          and the margin trend behind them.</p>
+      </div>
+      <div class="card feature">
+        <h3>Is it financially healthy?</h3>
+        <p class="small muted">Debt to equity, interest cover, current ratio, and whether
+          reported profit is actually turning into cash.</p>
+      </div>
+      <div class="card feature">
+        <h3>How expensive is it?</h3>
+        <p class="small muted">P/E, P/B, EV/EBITDA and PEG, compared with the company's own
+          history and with its peers.</p>
+      </div>
+      <div class="card feature">
+        <h3>What could go wrong?</h3>
+        <p class="small muted">A ranked risk dashboard, the bear case, and the specific
+          conditions that would break the investment thesis.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== HOW IT WORKS ===================== -->
+<section class="section">
+  <div class="container">
+    <div class="card">
+      <h2>How the analysis is produced</h2>
+      <p class="muted small">This matters more than any single number on the site.</p>
+
+      <div class="pipeline">
+        <div class="pipeline-step"><span>1</span><strong>Data providers</strong>
+          <p class="tiny muted">Prices, financial statements, filings and news.</p></div>
+        <div class="pipeline-arrow">&rarr;</div>
+        <div class="pipeline-step"><span>2</span><strong>Python calculations</strong>
+          <p class="tiny muted">Every ratio and indicator is computed in code you can read.</p></div>
+        <div class="pipeline-arrow">&rarr;</div>
+        <div class="pipeline-step"><span>3</span><strong>Structured analysis</strong>
+          <p class="tiny muted">Finished numbers: ROE 31.2%, D/E 0.18, RSI 58.</p></div>
+        <div class="pipeline-arrow">&rarr;</div>
+        <div class="pipeline-step"><span>4</span><strong>AI explanation</strong>
+          <p class="tiny muted">The model explains those numbers. It never invents one.</p></div>
+      </div>
+
+      <div class="notice" style="margin-top:18px">
+        <strong>No blind buy or sell signals.</strong>
+        StockIQ never prints BUY, SELL or HOLD. Instead it shows what would make a stock
+        more attractive, what would argue for waiting, and what should make you cautious,
+        so you can form and test your own view.
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

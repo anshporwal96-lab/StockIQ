@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}{{ code }} - StockIQ India{% endblock %}
+{% block content %}
+<section class="section">
+  <div class="container center" style="padding:70px 20px">
+    <h1 style="font-size:3.4rem;margin-bottom:.1em">{{ code }}</h1>
+    <p class="muted" style="font-size:1.05rem">{{ message }}</p>
+    <p><a class="btn btn-primary" href="/">Back to the homepage</a></p>
+  </div>
+</section>
+{% endblock %}

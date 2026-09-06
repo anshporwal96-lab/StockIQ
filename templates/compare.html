@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Compare stocks - StockIQ India{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <h1>Compare stocks</h1>
+    <p class="muted">Put 2 to 5 companies side by side on growth, profitability, balance
+      sheet, valuation and technical trend.</p>
+
+    <div class="card">
+      <div class="compare-builder">
+        <div class="nav-search">
+          <input type="search" id="compareSearch" placeholder="Add a company or symbol..."
+                 autocomplete="off" aria-label="Add a company to compare">
+          <div class="search-results" id="compareSearchResults" hidden></div>
+        </div>
+        <button class="btn btn-primary" id="compareRun">Compare</button>
+        <button class="btn btn-outline" id="compareClear">Clear</button>
+      </div>
+
+      <div class="chip-row" id="compareChips"></div>
+      <p class="small muted" id="compareHint">
+        Add at least two companies. Click a suggestion in the dropdown to add it.
+      </p>
+    </div>
+
+    <div id="compareOutput"></div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/stock.js') }}"></script>
+<script src="{{ url_for('static', filename='js/compare.js') }}"></script>
+{% endblock %}

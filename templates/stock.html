@@ -1,0 +1,232 @@
+{% extends "base.html" %}
+{% block title %}{{ symbol }} - Stock Analysis - StockIQ India{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/stock.css') }}">
+{% endblock %}
+
+{% block content %}
+
+{% if not found %}
+<section class="section">
+  <div class="container">
+    <div class="notice notice-warn">
+      <strong>We could not find "{{ symbol }}".</strong>
+      Try an NSE symbol (TCS), a BSE code (532540), or a company name (Reliance).
+      Use the search box at the top of the page.
+    </div>
+  </div>
+</section>
+{% else %}
+
+<!-- The symbol is handed to JavaScript through a data attribute rather than by
+     generating an inline <script>, which keeps the page free of inline JS. -->
+<div id="stockRoot" data-symbol="{{ symbol }}">
+
+  <!-- ===================== HEADER ===================== -->
+  <section class="stock-header">
+    <div class="container">
+      <div class="stock-title-row">
+        <div>
+          <h1 id="companyName"><span class="skeleton" style="width:280px;height:26px;display:inline-block"></span></h1>
+          <div class="exchange-line" id="exchangeLine"></div>
+        </div>
+        <div class="stock-actions">
+          <button class="btn btn-outline btn-sm" id="beginnerToggle"
+                  title="Add plain-English explanations throughout the page">
+            Explain Like I Am a Beginner
+          </button>
+          <button class="btn btn-outline btn-sm" id="watchBtn" title="Save to your watchlist">
+            <span id="watchStar">&#9734;</span> <span id="watchLabel">Watchlist</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="price-row" id="priceRow">
+        <div class="skeleton" style="width:220px;height:42px"></div>
+      </div>
+
+      <div class="quick-stats metrics" id="quickStats"></div>
+      <p class="source-note" id="priceSource"></p>
+    </div>
+  </section>
+
+  <!-- ===================== TABS ===================== -->
+  <div class="tab-bar">
+    <div class="container">
+      <nav class="tabs" id="tabs" role="tablist">
+        <button class="tab active" data-tab="overview">Overview</button>
+        <button class="tab" data-tab="fundamentals">Fundamentals</button>
+        <button class="tab" data-tab="financials">Financials</button>
+        <button class="tab" data-tab="technicals">Technicals</button>
+        <button class="tab" data-tab="valuation">Valuation</button>
+        <button class="tab" data-tab="earnings">Earnings</button>
+        <button class="tab" data-tab="news">News</button>
+        <button class="tab" data-tab="bullbear">Bull / Bear</button>
+        <button class="tab" data-tab="peers">Peers</button>
+        <button class="tab" data-tab="ai">AI Analyst</button>
+      </nav>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- ---------- OVERVIEW ---------- -->
+    <section class="tab-panel active" id="panel-overview">
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-head">
+            <h2>Price chart</h2>
+            <div class="period-buttons" id="periodButtons">
+              <button data-period="1D">1D</button>
+              <button data-period="1W">1W</button>
+              <button data-period="1M">1M</button>
+              <button data-period="3M">3M</button>
+              <button data-period="6M">6M</button>
+              <button class="active" data-period="1Y">1Y</button>
+              <button data-period="3Y">3Y</button>
+              <button data-period="5Y">5Y</button>
+            </div>
+          </div>
+          <div class="ma-toggles" id="maToggles">
+            <label><input type="checkbox" value="20"> 20 DMA</label>
+            <label><input type="checkbox" value="50" checked> 50 DMA</label>
+            <label><input type="checkbox" value="100"> 100 DMA</label>
+            <label><input type="checkbox" value="200" checked> 200 DMA</label>
+          </div>
+          <div class="chart-box"><canvas id="priceChart"></canvas></div>
+          <div class="chart-box chart-box-sm"><canvas id="volumeChart"></canvas></div>
+          <p class="source-note" id="chartSource"></p>
+        </div>
+
+        <div>
+          <div class="card">
+            <h2>StockIQ score</h2>
+            <div id="scoreBox"><div class="loading">Loading...</div></div>
+          </div>
+          <div class="card">
+            <h2>Company profile</h2>
+            <div id="profileBox"><div class="loading">Loading...</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>What does this company do?</h2>
+        <div id="businessBox"><div class="loading">Loading...</div></div>
+      </div>
+
+      <div class="card">
+        <h2>Shareholding</h2>
+        <div class="grid grid-2">
+          <div><div class="chart-box"><canvas id="shareholdingChart"></canvas></div></div>
+          <div id="shareholdingBox"><div class="loading">Loading...</div></div>
+        </div>
+      </div>
+
+      <div class="card" id="summaryCard">
+        <div class="card-head">
+          <h2>StockIQ summary</h2>
+          <span class="badge" id="summaryBadge"></span>
+        </div>
+        <div id="summaryBox"><div class="loading">Building the summary...</div></div>
+      </div>
+    </section>
+
+    <!-- ---------- SIMPLE PANELS (filled in by stock.js) ---------- -->
+    <section class="tab-panel" id="panel-fundamentals">
+      <div id="fundamentalsBox"><div class="loading">Loading fundamentals...</div></div>
+    </section>
+
+    <section class="tab-panel" id="panel-financials">
+      <div id="financialsBox"><div class="loading">Loading financial statements...</div></div>
+    </section>
+
+    <section class="tab-panel" id="panel-technicals">
+      <div id="technicalsBox"><div class="loading">Loading technical analysis...</div></div>
+    </section>
+
+    <section class="tab-panel" id="panel-valuation">
+      <div id="valuationBox"><div class="loading">Loading valuation...</div></div>
+    </section>
+
+    <section class="tab-panel" id="panel-earnings">
+      <div id="earningsBox"><div class="loading">Loading quarterly results...</div></div>
+    </section>
+
+    <section class="tab-panel" id="panel-news">
+      <div id="newsBox"><div class="loading">Loading news...</div></div>
+    </section>
+
+    <section class="tab-panel" id="panel-bullbear">
+      <div id="bullBearBox"><div class="loading">Loading both sides of the argument...</div></div>
+    </section>
+
+    <section class="tab-panel" id="panel-peers">
+      <div id="peersBox"><div class="loading">Loading peer comparison...</div></div>
+    </section>
+
+    <!-- ---------- AI ANALYST ---------- -->
+    <section class="tab-panel" id="panel-ai">
+      <div class="card">
+        <div class="card-head">
+          <h2>Ask StockIQ AI</h2>
+          <span class="badge" id="aiModeBadge"></span>
+        </div>
+        <p class="small muted">
+          The assistant is given only the numbers this page already computed. It is
+          instructed not to state any figure that is not in that data, not to predict a
+          price, and never to say buy, sell or hold.
+        </p>
+
+        <div class="chat-window" id="chatWindow">
+          <div class="chat-message assistant">
+            <p>Ask me anything about this company. Tap a suggestion below to start.</p>
+          </div>
+        </div>
+
+        <div class="chat-suggestions" id="chatSuggestions">
+          <button>What are the biggest risks?</button>
+          <button>Is the company profitable?</button>
+          <button>Why is its P/E where it is?</button>
+          <button>Explain the balance sheet</button>
+          <button>What happened in the latest earnings?</button>
+          <button>Explain this stock like I am a beginner</button>
+          <button>What is the bull case?</button>
+          <button>What is the bear case?</button>
+        </div>
+
+        <form class="chat-form" id="chatForm">
+          <input type="text" id="chatInput" placeholder="Ask a question about this stock..."
+                 autocomplete="off" aria-label="Ask a question">
+          <button class="btn btn-primary" type="submit" id="chatSend">Ask</button>
+        </form>
+      </div>
+
+      <div class="card">
+        <h2>Full research report</h2>
+        <p class="small muted">Each section is written separately from the computed data.</p>
+        <div class="ai-sections" id="aiSections">
+          <button data-section="fundamental">Fundamental analysis</button>
+          <button data-section="technical">Technical analysis</button>
+          <button data-section="valuation">Valuation</button>
+          <button data-section="quarterly">Latest quarter</button>
+          <button data-section="bull">Bull case</button>
+          <button data-section="bear">Bear case</button>
+          <button data-section="beginner">Beginner explanation</button>
+          <button data-section="summary">Final summary</button>
+        </div>
+        <div id="aiSectionOutput" class="ai-output"></div>
+      </div>
+    </section>
+
+  </div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<!-- Chart.js draws the price, volume and shareholding charts. -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+<script src="{{ url_for('static', filename='js/stock.js') }}"></script>
+{% endblock %}

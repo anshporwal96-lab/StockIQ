@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+{% block title %}Learn the basics - StockIQ India{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <h1>Learn the basics</h1>
+    <p class="muted">Every term StockIQ uses, explained with a small example. If a page
+      ever shows a number you do not recognise, it is defined here.</p>
+
+    <div class="card">
+      <h2>Size and sales</h2>
+
+      <h3>Market Cap</h3>
+      <p>The price of one share multiplied by the number of shares. It is what the market
+        says the whole company is worth today.</p>
+      <p class="small muted"><em>Example:</em> 100 crore shares at Rs 500 each gives a market
+        cap of Rs 50,000 crore.</p>
+
+      <h3>Revenue</h3>
+      <p>Total money customers paid the company, before any costs are subtracted. Also
+        called sales or turnover.</p>
+      <p class="small muted"><em>Watch for:</em> revenue growing while profit falls means
+        costs are rising faster than sales.</p>
+
+      <h3>EBITDA</h3>
+      <p>Earnings Before Interest, Tax, Depreciation and Amortisation. It shows what the
+        core operations earn before financing decisions and accounting choices.</p>
+      <p class="small muted"><em>Example:</em> revenue Rs 1,000 crore, operating costs
+        Rs 800 crore, so EBITDA is Rs 200 crore and the EBITDA margin is 20%.</p>
+
+      <h3>PAT (Profit After Tax)</h3>
+      <p>Also called net profit. What is left after every cost, interest payment and tax.
+        This is the number that belongs to shareholders.</p>
+
+      <h3>EPS (Earnings Per Share)</h3>
+      <p>Net profit divided by the number of shares. Your slice of the profit for each
+        share you own.</p>
+      <p class="small muted"><em>Example:</em> profit Rs 500 crore, 100 crore shares,
+        so EPS is Rs 5.</p>
+    </div>
+
+    <div class="card">
+      <h2>How expensive is it?</h2>
+
+      <h3>P/E Ratio</h3>
+      <p>Price divided by earnings per share.</p>
+      <p class="small muted"><em>Example:</em> a company earns Rs 10 per share and its stock
+        costs Rs 200. Its P/E is 20. That means investors are paying Rs 20 for every Rs 1
+        of annual earnings.</p>
+      <p>A high P/E is not automatically bad and a low one is not automatically a bargain.
+        A high P/E usually means buyers expect strong growth; a low one often means they
+        expect trouble. The question is always whether they are right.</p>
+
+      <h3>P/B Ratio</h3>
+      <p>Price divided by book value per share, where book value is assets minus
+        liabilities. Below 1 means you pay less than the accounting value of the company.
+        Most useful for banks and asset-heavy businesses.</p>
+
+      <h3>EV/EBITDA</h3>
+      <p>Enterprise Value divided by EBITDA. Enterprise value is market cap plus debt minus
+        cash: what it would really cost to buy the whole business. It lets you compare two
+        companies fairly even when one carries much more debt than the other.</p>
+
+      <h3>PEG Ratio</h3>
+      <p>P/E divided by the earnings growth rate. The old rule of thumb is that a PEG near
+        1 means growth roughly justifies the price. It is a rough guide, not a rule.</p>
+
+      <h3>Dividend Yield</h3>
+      <p>The yearly dividend as a percentage of the share price.</p>
+      <p class="small muted"><em>Example:</em> a Rs 10 dividend on a Rs 500 share is a 2%
+        yield: Rs 2 a year for every Rs 100 invested.</p>
+    </div>
+
+    <div class="card">
+      <h2>Is it a good business?</h2>
+
+      <h3>ROE (Return on Equity)</h3>
+      <p>Profit as a percentage of the owners money in the business.</p>
+      <p class="small muted"><em>Example:</em> ROE of 20% means that for every Rs 100 of
+        shareholder capital, the company earned Rs 20 of profit in a year.</p>
+      <p>A company can raise its ROE simply by borrowing more, so always read ROE next to
+        debt-to-equity.</p>
+
+      <h3>ROCE (Return on Capital Employed)</h3>
+      <p>Like ROE, but it counts borrowed money as well as the owners money. Because you
+        cannot flatter it with debt, it usually says more about the quality of the
+        underlying business.</p>
+
+      <h3>Debt / Equity</h3>
+      <p>Borrowed money divided by the owners money. 0 means debt-free. Above 1 means the
+        company has borrowed more than the owners put in.</p>
+      <p class="small muted">Debt is not automatically bad. It magnifies both good years
+        and bad ones, which is exactly why it matters.</p>
+
+      <h3>Free Cash Flow</h3>
+      <p>Cash left after paying to run and grow the business (operating cash flow minus
+        capital spending).</p>
+      <p>Profit is an accounting number and involves judgement. Free cash flow is actual
+        money. When the two drift apart for several years, that is worth investigating.</p>
+    </div>
+
+    <div class="card">
+      <h2>Reading the price chart</h2>
+
+      <h3>Moving Average</h3>
+      <p>The average closing price over the last N days, recalculated each day. A 200-day
+        moving average smooths out daily noise so a longer trend is visible.</p>
+      <p class="small muted">Price above its 200 DMA is often described as a long-term
+        uptrend. That describes the past, not the future.</p>
+
+      <h3>RSI</h3>
+      <p>Relative Strength Index. Compares the size of recent gains with recent losses on a
+        0 to 100 scale. Above 70 is called overbought, below 30 oversold.</p>
+      <p class="small muted">These labels describe how one-sided recent trading has been.
+        A stock can stay above 70 for months.</p>
+
+      <h3>Support and Resistance</h3>
+      <p>Support is a price area where buyers have stepped in before. Resistance is where
+        sellers have. They are patterns in past trading, not rules the market must obey.</p>
+
+      <h3>MACD and ADX</h3>
+      <p>MACD compares a short-term and a medium-term moving average, showing whether
+        momentum is turning. ADX measures how strong a trend is, not which way it points:
+        below 20 means price is drifting sideways.</p>
+    </div>
+
+    <div class="card" id="data">
+      <h2>Where StockIQ gets its data</h2>
+      <p>The app is set up so no single data source is baked into the code. Every source
+        implements the same seven methods, so swapping one for another is a single line in
+        the <code>.env</code> file.</p>
+
+      <h3>Demo mode (the default)</h3>
+      <p>With <code>DATA_PROVIDER=demo</code>, every price, statement and headline is
+        generated sample data. It is clearly labelled DEMO DATA everywhere it appears. It
+        exists so you can see and test every screen without paying for market data. None
+        of it is real.</p>
+
+      <h3>Switching to real data</h3>
+      <p>Set <code>DATA_PROVIDER=yfinance</code> in <code>.env</code> and run
+        <code>pip install yfinance</code>. That gives real prices, historical candles and
+        annual financials. Note that yfinance reads Yahoo Finance's public endpoints: it is
+        not an official NSE or BSE feed and is not licensed for redistribution. For anything
+        beyond personal research, use a licensed vendor or an official exchange feed.</p>
+
+      <h3>Adding your own source</h3>
+      <p>Copy <code>services/providers/demo_provider.py</code>, keep the method names and
+        the returned dictionary keys identical, and register your class in
+        <code>services/providers/__init__.py</code>. The README has a worked example.</p>
+    </div>
+
+    <div class="card">
+      <h2>What StockIQ deliberately will not do</h2>
+      <ul class="reason-list">
+        <li>It never prints BUY, SELL or HOLD. It shows the conditions that would make a
+          stock more attractive, the conditions that argue for waiting, and the ones that
+          should make you cautious.</li>
+        <li>It never predicts a share price and never sets a price target.</li>
+        <li>It never fills a gap with a plausible-looking number. If a figure is not
+          available it says so.</li>
+        <li>The AI is only allowed to explain numbers this app already computed. It is
+          instructed not to state any figure that is not in that data.</li>
+        <li>It is not a SEBI-registered investment adviser and does not give personalised
+          investment advice.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+{% endblock %}

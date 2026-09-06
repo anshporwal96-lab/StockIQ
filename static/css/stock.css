@@ -1,0 +1,160 @@
+/* ==========================================================================
+   stock.css - the individual stock dashboard
+   ========================================================================== */
+
+/* ---------- Header ---------- */
+.stock-header { background: var(--surface); border-bottom: 1px solid var(--border);
+                padding: 24px 0 20px; }
+.stock-title-row { display: flex; justify-content: space-between; align-items: flex-start;
+                   gap: 18px; flex-wrap: wrap; }
+.stock-title-row h1 { margin: 0 0 5px; font-size: 1.65rem; }
+.exchange-line { font-size: .84rem; color: var(--text-muted); display: flex; gap: 12px;
+                 flex-wrap: wrap; align-items: center; }
+.stock-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.price-row { display: flex; align-items: baseline; gap: 14px; margin: 16px 0 18px;
+             flex-wrap: wrap; }
+.price-main { font-size: 2.3rem; font-weight: 650; font-family: var(--mono);
+              font-variant-numeric: tabular-nums; }
+.price-change { font-size: 1.05rem; font-weight: 600; font-family: var(--mono); }
+.price-range { font-size: .82rem; color: var(--text-muted); }
+
+/* ---------- Tabs ---------- */
+.tab-bar { background: var(--surface); border-bottom: 1px solid var(--border);
+           position: sticky; top: 60px; z-index: 40; }
+.tabs { display: flex; gap: 2px; overflow-x: auto; -webkit-overflow-scrolling: touch;
+        scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab {
+  background: none; border: 0; border-bottom: 2px solid transparent; cursor: pointer;
+  padding: 13px 15px; font-size: .89rem; font-weight: 600; color: var(--text-muted);
+  white-space: nowrap; font-family: inherit;
+}
+.tab:hover { color: var(--brand); }
+.tab.active { color: var(--brand); border-bottom-color: var(--brand); }
+
+.tab-panel { display: none; padding: 24px 0 10px; }
+.tab-panel.active { display: block; }
+
+/* ---------- Charts ---------- */
+.chart-box { position: relative; height: 300px; margin-top: 10px; }
+.chart-box-sm { height: 96px; }
+.period-buttons { display: flex; gap: 3px; flex-wrap: wrap; }
+.period-buttons button {
+  background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 4px 10px; font-size: .78rem; font-weight: 600; cursor: pointer;
+  color: var(--text-muted); font-family: inherit;
+}
+.period-buttons button.active { background: var(--brand); color: #fff; border-color: var(--brand); }
+
+.ma-toggles { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 10px;
+              font-size: .8rem; color: var(--text-muted); }
+.ma-toggles label { display: flex; align-items: center; gap: 5px; cursor: pointer; }
+
+/* ---------- Verdict blocks ---------- */
+.verdict {
+  display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px;
+  border-radius: var(--radius-sm); font-weight: 700; font-size: 1rem; letter-spacing: .04em;
+}
+.verdict-bullish { background: var(--up-soft); color: var(--up); }
+.verdict-bearish { background: var(--down-soft); color: var(--down); }
+.verdict-neutral { background: var(--surface-2); color: var(--neutral); }
+
+.big-score { font-size: 2.6rem; font-weight: 700; font-family: var(--mono); line-height: 1; }
+.big-score small { font-size: 1rem; color: var(--text-muted); font-weight: 500; }
+
+/* ---------- Reason and evidence lists ---------- */
+.reason-list { list-style: none; margin: 0; padding: 0; }
+.reason-list li { padding: 8px 0 8px 20px; position: relative; font-size: .89rem;
+                  border-bottom: 1px solid var(--border); }
+.reason-list li:last-child { border-bottom: 0; }
+.reason-list li::before { content: "\2022"; position: absolute; left: 4px;
+                          color: var(--brand); font-weight: 700; }
+
+.case-point { padding: 12px 0; border-bottom: 1px solid var(--border); }
+.case-point:last-child { border-bottom: 0; }
+.case-point .pt { font-weight: 650; font-size: .95rem; display: flex; gap: 8px;
+                  align-items: center; flex-wrap: wrap; }
+.case-point .ev { font-size: .87rem; color: var(--text-muted); margin-top: 4px; }
+
+.risk-item { display: grid; grid-template-columns: 34px 1fr; gap: 12px; padding: 12px 0;
+             border-bottom: 1px solid var(--border); }
+.risk-item:last-child { border-bottom: 0; }
+.risk-rank { width: 28px; height: 28px; border-radius: 50%; display: flex;
+             align-items: center; justify-content: center; font-size: .8rem;
+             font-weight: 700; background: var(--surface-2); color: var(--text-muted); }
+.risk-item.High .risk-rank   { background: var(--down-soft); color: var(--down); }
+.risk-item.Medium .risk-rank { background: var(--warn-soft); color: var(--warn); }
+
+/* ---------- Scenario cards ---------- */
+.scenario-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.scenario { border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 15px; }
+.scenario.Bull { border-top: 3px solid var(--up); }
+.scenario.Base { border-top: 3px solid var(--brand); }
+.scenario.Bear { border-top: 3px solid var(--down); }
+.scenario h4 { margin-bottom: 8px; }
+.scenario ul { margin: 8px 0 0; padding-left: 18px; font-size: .82rem; color: var(--text-muted); }
+
+/* ---------- News ---------- */
+.news-item { padding: 15px 0; border-bottom: 1px solid var(--border); }
+.news-item:last-child { border-bottom: 0; }
+.news-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+.news-item h3 { font-size: 1rem; margin: 0 0 5px; }
+.news-meta { font-size: .78rem; color: var(--text-muted); display: flex; gap: 10px;
+             flex-wrap: wrap; margin-bottom: 7px; }
+.news-why { font-size: .85rem; background: var(--surface-2); padding: 9px 12px;
+            border-radius: var(--radius-sm); margin-top: 8px; }
+.pager { display: flex; gap: 8px; justify-content: center; margin-top: 18px; align-items: center; }
+
+/* ---------- AI chat ---------- */
+.chat-window { border: 1px solid var(--border); border-radius: var(--radius);
+               background: var(--surface-2); padding: 15px; height: 380px;
+               overflow-y: auto; margin: 14px 0; }
+.chat-message { margin-bottom: 14px; max-width: 88%; }
+.chat-message p { margin: 0; white-space: pre-wrap; }
+.chat-message.user { margin-left: auto; background: var(--brand); color: #fff;
+                     padding: 10px 14px; border-radius: 14px 14px 3px 14px; }
+.chat-message.assistant { background: var(--surface); border: 1px solid var(--border);
+                          padding: 12px 15px; border-radius: 14px 14px 14px 3px; font-size: .9rem; }
+.chat-message .who { font-size: .72rem; text-transform: uppercase; letter-spacing: .05em;
+                     color: var(--text-muted); margin-bottom: 5px; font-weight: 600; }
+
+.chat-suggestions { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 12px; }
+.chat-suggestions button {
+  background: var(--surface-2); border: 1px solid var(--border); border-radius: 999px;
+  padding: 6px 13px; font-size: .8rem; cursor: pointer; color: var(--text-muted);
+  font-family: inherit;
+}
+.chat-suggestions button:hover { border-color: var(--brand); color: var(--brand); }
+
+.chat-form { display: flex; gap: 8px; }
+.chat-form input { flex: 1; padding: 11px 14px; border: 1px solid var(--border);
+                   border-radius: var(--radius-sm); background: var(--surface);
+                   color: var(--text); font-size: .93rem; font-family: inherit; }
+
+.ai-sections { display: flex; gap: 7px; flex-wrap: wrap; margin: 14px 0; }
+.ai-sections button {
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 8px 14px; font-size: .84rem;
+  font-weight: 600; cursor: pointer; color: var(--text); font-family: inherit;
+}
+.ai-sections button.active { background: var(--brand); color: #fff; border-color: var(--brand); }
+.ai-output { white-space: pre-wrap; font-size: .89rem; line-height: 1.7;
+             background: var(--surface-2); border-radius: var(--radius-sm);
+             padding: 16px; font-family: var(--mono); }
+.ai-output:empty { display: none; }
+
+/* ---------- Beginner mode ---------- */
+.explain { display: none; font-size: .82rem; color: var(--brand);
+           background: var(--brand-soft); padding: 8px 11px; border-radius: var(--radius-sm);
+           margin-top: 7px; line-height: 1.55; }
+body.beginner-on .explain { display: block; }
+body.beginner-on #beginnerToggle { background: var(--brand); color: #fff; border-color: var(--brand); }
+
+@media (max-width: 760px) {
+  .scenario-grid { grid-template-columns: 1fr; }
+  .chart-box { height: 240px; }
+  .price-main { font-size: 1.8rem; }
+  .stock-actions { width: 100%; }
+  .stock-actions .btn { flex: 1; }
+}

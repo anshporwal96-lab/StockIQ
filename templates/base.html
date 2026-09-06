@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}StockIQ India{% endblock %}</title>
+  <meta name="description" content="AI-powered fundamental, technical and financial analysis for NSE and BSE stocks.">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  {% block styles %}{% endblock %}
+
+  <!-- The theme is applied before the page paints, so dark mode does not flash white. -->
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('stockiq-theme');
+        if (saved) document.documentElement.setAttribute('data-theme', saved);
+      } catch (e) { /* private browsing can block localStorage - ignore */ }
+    })();
+  </script>
+</head>
+<body>
+
+<!-- The CSRF token is rendered into the page so JavaScript can send it back
+     on every POST/DELETE. See static/js/main.js. -->
+<meta name="csrf-token" content="{{ csrf_token }}">
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/">
+      <span class="brand-mark">SIQ</span>
+      <span class="brand-text">StockIQ <em>India</em></span>
+    </a>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="site-nav" id="siteNav">
+      <a href="/">Home</a>
+      <a href="/markets">Markets</a>
+      <a href="/compare">Compare</a>
+      <a href="/watchlist">Watchlist</a>
+      <a href="/learn">Learn</a>
+
+      <div class="nav-search">
+        <input type="search" id="navSearch" placeholder="Search stocks..." autocomplete="off"
+               aria-label="Search stocks">
+        <div class="search-results" id="navSearchResults" hidden></div>
+      </div>
+
+      <button class="theme-toggle" id="themeToggle" title="Switch theme" aria-label="Switch theme">
+        <span class="theme-light">&#9788; Light</span>
+        <span class="theme-dark">&#9789; Dark</span>
+      </button>
+
+      {% if logged_in %}
+        <a href="/profile" class="nav-user">{{ username }}</a>
+        <button class="btn btn-ghost btn-sm" id="logoutBtn">Logout</button>
+      {% else %}
+        <a href="/login" class="btn btn-primary btn-sm">Login</a>
+      {% endif %}
+    </nav>
+  </div>
+</header>
+
+{% if using_demo_data %}
+<div class="demo-banner" role="status">
+  <strong>DEMO DATA</strong>
+  Every price, financial statement and news item on this site is generated sample data,
+  not real market information. Set <code>DATA_PROVIDER</code> in your <code>.env</code>
+  file to use a real source. <a href="/learn#data">How to switch</a>
+</div>
+{% endif %}
+
+<main id="main">
+  {% block content %}{% endblock %}
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h4>StockIQ India</h4>
+        <p class="muted">Your AI research assistant for Indian stocks. Built to help you
+          think critically, not to tell you what to buy.</p>
+      </div>
+      <div>
+        <h4>Sections</h4>
+        <a href="/markets">Markets</a>
+        <a href="/compare">Compare stocks</a>
+        <a href="/watchlist">Watchlist</a>
+        <a href="/learn">Learn the basics</a>
+      </div>
+      <div>
+        <h4>Data</h4>
+        <p class="muted">Provider: <code>{{ data_provider }}</code><br>
+          AI: <code>{{ 'enabled' if ai_enabled else 'rule-based fallback' }}</code></p>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      <strong>Disclaimer.</strong>
+      This platform is for educational and research purposes only. AI-generated analysis
+      may contain errors and should not be considered personalised investment advice.
+      Verify information independently and consider your own financial situation,
+      investment horizon and risk tolerance before making investment decisions.
+      StockIQ India is not a SEBI-registered investment adviser.
+    </div>
+  </div>
+</footer>
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

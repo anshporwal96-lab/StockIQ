@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}My watchlist - StockIQ India{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="card-head">
+      <div>
+        <h1>My watchlist</h1>
+        <p class="muted" style="margin:0">Stocks you have starred, with live price and score.</p>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <select id="watchSort" class="btn btn-outline btn-sm" aria-label="Sort watchlist">
+          <option value="added">Sort: recently added</option>
+          <option value="name">Sort: company name</option>
+          <option value="change">Sort: day change</option>
+          <option value="score">Sort: StockIQ score</option>
+        </select>
+        <button class="btn btn-outline btn-sm" id="watchFull">Load scores</button>
+      </div>
+    </div>
+
+    {% if not logged_in %}
+      <div class="card">
+        <div class="notice">
+          <strong>Please log in.</strong>
+          A watchlist is saved to your account, so you need to
+          <a href="/login">log in</a> or <a href="/register">create a free account</a> first.
+        </div>
+      </div>
+    {% else %}
+      <div class="card">
+        <div class="nav-search" style="margin-bottom:14px">
+          <input type="search" id="watchSearch" placeholder="Search a stock to add..."
+                 autocomplete="off" aria-label="Search a stock to add">
+          <div class="search-results" id="watchSearchResults" hidden></div>
+        </div>
+        <div id="watchlistBox"><div class="loading">Loading your watchlist...</div></div>
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/watchlist.js') }}"></script>
+{% endblock %}
